@@ -4,20 +4,14 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.UUID;
 
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import domain.PersonDomainModel;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class Person_Test {
 		
@@ -51,6 +45,24 @@ public class Person_Test {
 		
 	}
 	
+	@AfterClass
+	public static void removeData() {
+		PersonDAL.deletePerson(person1UUID);
+	}
 	
-
+	@Test
+	public void testAddPerson() {
+		PersonDAL.addPerson(person1);
+		assertNotNull(PersonDAL.getPerson(person1UUID));
+	}
+	
+	@Test
+	public void testUpdatePerson(){
+	   try{
+		   PersonDAL.updatePerson(person1);
+	   }
+	   catch(Exception e){
+	      fail("Could not update person");
+	   }
+	}
 }
